@@ -1,0 +1,283 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #D8EFD3;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+  
+  }
+
+  p {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+ } 
+
+ #invalid p {
+  margin: 0;
+  padding: 0;
+  color: #D84040;
+  font-weight: bold;
+ }
+
+ h2 {
+  margin: 0;
+  
+ }
+
+.invalid {
+  background-color: #e26a6a !important;
+  opacity: 0.8;
+}
+
+.main-div {
+  display: flex;
+ 
+  flex-direction: column;
+  
+ min-height: 100vh;
+ 
+ align-items: center;
+ gap: 8rem;
+}
+
+.footer-div {
+  padding: 2%;
+  width: 100%;
+  margin-top: auto;
+  color: #55AD9B;
+  font-weight: 400;
+}
+
+
+
+
+.heading {
+  width: 100%;
+  padding: 1% 0 0 0;
+}
+
+.heading h1 {
+  font-size: 3rem;
+  margin-bottom: 0;
+ 
+}
+.heading a {
+  text-decoration: none;
+  color: #55AD9B;
+}
+
+.result-div {
+  width: 70%;
+  align-self: center;
+  margin-top: auto;
+  background-color: #F1F8E8;
+  font-size: 2rem;
+  padding: 40px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.result-div p {
+  margin-bottom: 0.75rem;
+}
+
+.calories-div {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.span {
+  color: #55AD9B;
+  font-weight: bold;
+}
+
+.form-div {
+  width: 70%;
+  align-self: center;
+  margin-top: auto;
+
+}
+
+
+  #regForm {
+    background-color: #F1F8E8;
+    
+    padding: 40px;
+    
+    min-width: 300px;
+    font-size: 2rem;
+   border-radius: 50px;
+  }
+  
+
+input[type=radio] {
+    display: none;
+}
+label {
+    cursor: pointer;
+    padding: 10px;
+    width: 12rem;
+}
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  button {
+    background-color: #55AD9B;
+    color: #F1F8E8;
+    border: none;
+    margin-top: 2rem;
+    padding: 10px 20px;
+   border-radius: 50px;
+    width: 8rem;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  #prevBtn {
+    background-color: #bbbbbb;
+  }
+
+  input[type=button] {
+    cursor: pointer;
+  }
+  
+ input[type=number] {
+  border: none;
+  width: 12rem;
+  background-color: #55AD9B;
+  color: #F1F8E8;
+  padding: 10px;
+  border-radius:  50px ;
+  font-size: 2rem;
+  text-indent: 5px;
+  text-align: center;
+ }
+
+ input::placeholder{
+  color: #D8EFD3;
+}
+
+input:focus::-webkit-input-placeholder 
+{
+    color: transparent;
+}
+.inner-div {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.question {
+  align-self: center;
+}
+
+.two-option {
+  align-self: center;
+}
+
+.two-o-label {
+  display: inline-block;
+ color: #55AD9B;
+  cursor: pointer;
+  border: 1px solid #55AD9B;
+  border-radius:  50px ;
+  font-weight: bold;
+}
+
+
+.two-o-label:hover {
+  opacity: 0.8;
+}
+
+.two-o-label::after {
+  color: #F1F8E8;
+}
+
+
+
+input[type="radio"]:checked+label{
+   background-color: #55AD9B;
+   color: #F1F8E8;
+  }
+
+
+  @media (max-height: 680px) {
+    .main-div {
+      gap: 3rem;
+      
+    }
+
+    .heading h1 {
+      font-size: 2rem;
+      
+    }
+    .result-div {
+      width: 80%;
+      
+      font-size: 1.25rem;
+     
+      gap: 1.5rem;
+    }
+    .calories-div {
+      
+      flex-direction: column;
+     justify-content: center;
+      gap: 1.5rem;
+      text-align: center;
+     
+    }
+    .form-div {
+      width: 80%;
+     
+    
+    }
+    
+    
+      #regForm {
+        background-color: #F1F8E8;
+        
+        padding: 40px;
+        
+        
+        font-size: 1.25rem;
+      
+      }
+      label {
+        margin-bottom: 0.5rem;
+    }
+
+    button {
+      
+      margin-top: 2rem;
+      padding: 10px 10px;
+     border-radius: 50px;
+      width: 5rem;
+      cursor: pointer;
+    }
+    input[type=number] {
+      border: none;
+      width: 10rem;
+   
+      font-size: 1.25rem;
+     margin-bottom: 0.5rem;
+     }
+     
+  }

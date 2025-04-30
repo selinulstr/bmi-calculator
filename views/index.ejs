@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI and Calorie Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+
+  <div class="main-div">
+
+    <div class="heading">
+    <h1><a href="/">BMI and Calorie Calculator</a></h1>
+    </div>
+     
+
+       
+      
+
+    <% if (locals.bmi && locals.bmiCategory && locals.calories && locals.maintenance && locals.bmr) { %> 
+      <div class="result-div">
+        <div>
+
+          <p>Your BMI is <span class="span"><%= bmi %></span>, you are classified as <span class="span"><%= bmiCategory %> </span></p>
+          <p>BMR (Basal Metabolic Rate): <span class="span"><%= bmr %></span> kcal</p> 
+          <p>Weight Maintenance: <span class="span"><%= maintenance %></span> kcal</p> 
+        </div>
+        <div class="calories-div">
+          <div>
+          <p>Weight Reduction (0.25 kg/week): <span class="span"><%= calories[3]%> </span> kcal</p>
+          <p>Weight Reduction (0.5 kg/week): <span class="span"> <%= calories[4]%></span> kcal</p>
+          <p>Weight Reduction (1 kg/week): <span class="span"><%= calories[5] %></span> kcal</p>
+        </div>
+        <div>
+          <p>Weight Gain (0.25 kg/week): <span class="span"><%= calories[0] %></span> kcal</p>
+          <p>Weight Gain (0.5 kg/week): <span class="span"><%= calories[1] %></span> kcal</p>
+          <p>Weight Gain (1 kg/week): <span class="span"><%= calories[2] %></span> kcal</p>
+        </div>
+         </div>
+       
+              
+            </div>
+
+
+       <% } else { %>
+<div class="form-div"> 
+ 
+             
+      <form id="regForm" action="/calculate" method="post">
+       
+       
+        <div class="tab">
+          <div class="inner-div">
+            <p>1/4</p>
+            <h2 class="question">What is your sex?</h2> 
+            <div id="invalid" style="visibility: hidden;"><p>Please input your response</p></div>
+            
+            <div class="two-option">
+            <input type="radio" value="Female" name="gender" id="gender_f">
+            <label class="two-o-label" for="gender_f">Female</label>
+        <input type="radio" value="Male" name="gender" id="gender_m">
+        <label class="two-o-label" for="gender_m">Male</label>
+      </div>
+  </div>
+        </div>
+
+        <div class="tab"> 
+          <div class="inner-div">
+          <p>2/4</p>
+          <h2 class="question">What is your age?</h2>
+          <div id="invalid" style="visibility: hidden;"><p>Please input your response</p></div>
+           <div class="age-div">
+          <input type="number" name="age" placeholder="18" required>
+        </div>
+     </div>
+        </div>
+        
+        <div class="tab">
+          <div  class="inner-div">
+          <p>3/4</p>
+          <h2 class="question">What is your height and weight?</h2>
+          <div id="invalid" style="visibility: hidden;"><p>Please input your response</p></div>
+          
+    <div class="w-h-div">
+            
+            
+          <label for="metric-height" id="metric-height-label">Height</label>
+          <input type="number" id="metric-height" name="height"  placeholder="170">
+          <label for="metric-weight">Weight</label>
+            <input type="number" name="weight" id="metric-weight"  placeholder="70" required>
+        </div>
+      </div>
+        </div>
+        <div class="tab">
+          <div class="inner-div">
+          <p>4/4</p>
+          <h2 class="question">Which best describes your daily activity level?</h2>
+          <div id="invalid" style="visibility: hidden;"><p>Please input your response</p></div>
+          <div>
+            <input type="radio" value="sedentary" name="activity" id="activity_1">
+            <label class="two-o-label" for="activity_1">Sedentary</label>
+            <input type="radio" value="light" name="activity" id="activity_2">
+            <label class="two-o-label" for="activity_2">Light</label>
+            <input type="radio" value="moderate" name="activity" id="activity_3">
+            <label class="two-o-label" for="activity_3">Moderate</label>
+            <input type="radio" value="active" name="activity" id="activity_4"> 
+            <label class="two-o-label" for="activity_4">Active</label>
+            <input type="radio" value="very_active" name="activity" id="activity_5">
+            <label class="two-o-label" for="activity_5">Very Active</label>
+  </div>
+         </div>
+        </div>
+        <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div>
+       
+      </form>
+      </div>
+ <% } %>
+      <div class="footer-div">
+        <footer>
+          @ <%= new Date().getFullYear(); %>
+        </footer>
+      </div>
+      </div>
+</body>
+<script>
+      var currentTab = 0; // Current tab is set to be the first tab (0)
+      showTab(currentTab); // Display the current tab
+      
+      function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+          document.getElementById("prevBtn").style.display = "none";
+        } else {
+          document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+          document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+          document.getElementById("nextBtn").innerHTML = "Next";
+        }
+      
+      }
+      
+      function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
+          // ... the form gets submitted:
+          document.getElementById("regForm").submit();
+          return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+      }
+
+      function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+
+    // Reset invalid message before validation
+    let invalidMessage = x[currentTab].querySelector("#invalid");
+    if (invalidMessage) invalidMessage.style.visibility = "visible";
+
+    let radioGroupsChecked = {};
+    for (i = 0; i < y.length; i++) {
+    if (y[i].type === "radio") {
+        // Ensure at least one radio in each group is checked
+        let groupName = y[i].name;
+        if (!radioGroupsChecked[groupName]) {
+            let radios = document.getElementsByName(groupName);
+            let checked = Array.from(radios).some(radio => radio.checked);
+            radioGroupsChecked[groupName] = checked;
+            if (!checked) valid = false;
+        }
+    } else if (y[i].type === "number" || y[i].type === "text") {
+        // Ensure number and text fields are filled
+        if (y[i].value.trim() === "") {
+            valid = false;
+            y[i].classList.add("invalid");
+        } else {
+            y[i].classList.remove("invalid");
+
+            // Extra validation for number fields
+            if (y[i].type === "number") {
+                const val = parseFloat(y[i].value.trim());
+                if (y[i].name === "age" && (val < 5 || val > 120)) {
+                    valid = false;
+                    y[i].classList.add("invalid");
+                }
+                if (y[i].name === "height" && (val < 50 || val > 250)) {
+                    valid = false;
+                    y[i].classList.add("invalid");
+                }
+                if (y[i].name === "weight" && (val < 10 || val > 300)) {
+                    valid = false;
+                    y[i].classList.add("invalid");
+                }
+            }
+        }
+    }
+}
+
+
+    // Show invalid message only if something is missing
+    if (!valid && invalidMessage) invalidMessage.style.visibility = "visible";
+
+    return valid;
+}
+
+
+      
+      </script>
+      
+</html>
